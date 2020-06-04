@@ -11,6 +11,7 @@ RUN echo -e '\033[36;1m ******* INSTALL PACKAGES ******** \033[0m' && \
   apt-get update && apt-get install --no-install-recommends -y \
   sudo \
   git \
+  supervisor \
   privoxy \
   tor \
   python \
@@ -24,8 +25,6 @@ RUN echo -e '\033[36;1m ******* INSTALL PACKAGES ******** \033[0m' && \
   dnsutils && \
   rm -rf /var/lib/apt/lists/*
 
-RUN service privoxy restart
-
 RUN echo -e '\033[36;1m ******* ADD USER ******** \033[0m' && \
   useradd -d ${HOME} -m ${USER} && \
   passwd -d ${USER} && \
@@ -33,6 +32,15 @@ RUN echo -e '\033[36;1m ******* ADD USER ******** \033[0m' && \
 
 RUN echo -e '\033[36;1m ******* SELECT USER ******** \033[0m'
 USER ${USER}
+
+RUN echo -e '\033[36;1m ******* SETUP SUPERVISOR ******** \033[0m'
+# Post configuration
+ADD supervisord.conf /etc/supervisor/
+ADD supervisor-privoxy.conf /etc/supervisor/conf.d/
+ADD supervisor-tor.conf /etc/supervisor/conf.d/
+ADD privoxy_config /etc/privoxy/config
+
+RUN /usr/bin/supervisord
 
 RUN echo -e '\033[36;1m ******* SELECT WORKING SPACE ******** \033[0m'
 WORKDIR ${HOME}
@@ -45,8 +53,7 @@ RUN echo -e '\033[36;1m ******* SELECT WORKING SPACE ******** \033[0m'
 WORKDIR ${HOME}/ufonet/
 
 RUN echo -e '\033[36;1m ******* CONTAINER START COMMAND ******** \033[0m'
-CMD sudo service tor start && sudo service privoxy start && \ 
-    ./ufonet --check-tor --proxy="http://127.0.0.1:9050" && \ 
+CMD ./ufonet --check-tor --proxy="http://127.0.0.1:8118" && \ 
     ./ufonet --download-zombies --force-yes &&  \ 
     ./ufonet -i '$target' --force-yes && \ 
     ./ufonet -x '$target' --force-yes && \ 
