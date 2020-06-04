@@ -48,4 +48,4 @@ CMD sudo service tor start && sudo service privoxy start && \
     ./ufonet -i '$target' --force-yes && \ 
     ./ufonet -x '$target' --force-yes && \ 
     ./ufonet --download-github --force-yes && \ 
-    ./ufonet  --threads 20  -a '$target' --force-yes -r 10000 --loris 500 --db "search.php?q=" --nuke 10000 --tachyon 1000 && \ 
+    ./ufonet  --threads 20  -a '$target' --force-yes -r 10000 --loris 500 --db "search.php?q=" --nuke 10000 --tachyon 1000 
