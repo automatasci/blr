@@ -11,9 +11,6 @@ RUN echo -e '\033[36;1m ******* INSTALL PACKAGES ******** \033[0m' && \
   apk update && apk add -y \
   sudo \
   git \
-  supervisor \
-  privoxy \
-  tor \
   python \
   ca-certificates \
   python-pycurl \
@@ -32,15 +29,6 @@ RUN echo -e '\033[36;1m ******* ADD USER ******** \033[0m' && \
 
 RUN echo -e '\033[36;1m ******* SELECT USER ******** \033[0m'
 USER ${USER}
-
-RUN echo -e '\033[36;1m ******* SETUP SUPERVISOR ******** \033[0m'
-# Post configuration
-ADD supervisord.conf /etc/supervisor/
-ADD supervisor-privoxy.conf /etc/supervisor/conf.d/
-ADD supervisor-tor.conf /etc/supervisor/conf.d/
-ADD privoxy_config /etc/privoxy/config
-
-RUN /usr/bin/supervisord
 
 RUN echo -e '\033[36;1m ******* SELECT WORKING SPACE ******** \033[0m'
 WORKDIR ${HOME}
