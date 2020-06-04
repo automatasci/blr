@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM dockage/tor-privoxy
 
 LABEL authors https://www.automata.science
 ARG target
@@ -8,7 +8,7 @@ ENV APP https://github.com/epsylon/ufonet.git
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN echo -e '\033[36;1m ******* INSTALL PACKAGES ******** \033[0m' && \
-  apt-get update && apt-get install --no-install-recommends -y \
+  apk update && apk add -y \
   sudo \
   git \
   supervisor \
@@ -46,8 +46,7 @@ RUN echo -e '\033[36;1m ******* SELECT WORKING SPACE ******** \033[0m'
 WORKDIR ${HOME}
 
 RUN echo -e '\033[36;1m ******* INSTALL APP ******** \033[0m' && \
-  git clone ${APP} && \
-  sudo apt-get --purge autoremove -y git
+  git clone ${APP}
 
 RUN echo -e '\033[36;1m ******* SELECT WORKING SPACE ******** \033[0m'
 WORKDIR ${HOME}/ufonet/
