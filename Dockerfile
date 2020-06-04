@@ -11,6 +11,7 @@ RUN echo -e '\033[36;1m ******* INSTALL PACKAGES ******** \033[0m' && \
   apt-get update && apt-get install --no-install-recommends -y \
   sudo \
   git \
+  privoxy \
   tor \
   python \
   ca-certificates \
@@ -22,7 +23,9 @@ RUN echo -e '\033[36;1m ******* INSTALL PACKAGES ******** \033[0m' && \
   python-scapy \
   dnsutils && \
   rm -rf /var/lib/apt/lists/*
-  
+
+RUN service privoxy restart
+
 RUN echo -e '\033[36;1m ******* ADD USER ******** \033[0m' && \
   useradd -d ${HOME} -m ${USER} && \
   passwd -d ${USER} && \
