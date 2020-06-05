@@ -44,6 +44,7 @@ RUN echo -e '\033[36;1m ******* SELECT WORKING SPACE ******** \033[0m'
 WORKDIR ${HOME}/ufonet/
 
 RUN echo -e '\033[36;1m ******* CONTAINER START COMMAND ******** \033[0m'
+RUN systemctl enable privoxy
 CMD sudo service tor start && \ 
     sudo service privoxy start && \ 
     ./ufonet --check-tor --proxy="http://127.0.0.1:8118" && \ 
