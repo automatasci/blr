@@ -8,7 +8,7 @@ ENV APP https://github.com/epsylon/ufonet.git
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN echo -e '\033[36;1m ******* INSTALL PACKAGES ******** \033[0m' && \
-  apk update && apk install --no-install-recommends -y \
+  apt-get update && apt-get install --no-install-recommends -y \
   sudo \
   git \
   python \
@@ -35,7 +35,7 @@ WORKDIR ${HOME}
 
 RUN echo -e '\033[36;1m ******* INSTALL APP ******** \033[0m' && \
   git clone ${APP} && \
-  sudo apk --purge autoremove -y git
+  sudo apt-get --purge autoremove -y git
 
 RUN echo -e '\033[36;1m ******* SELECT WORKING SPACE ******** \033[0m'
 WORKDIR ${HOME}/ufonet/
