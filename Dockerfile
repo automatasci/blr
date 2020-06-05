@@ -1,7 +1,7 @@
 FROM debian:buster-slim
 
 LABEL authors https://www.automata.science
-ARG target
+ARG target=https://automata.science
 
 ENV USER ufonet
 ENV HOME /home/${USER}
