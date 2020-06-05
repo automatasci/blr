@@ -3,6 +3,8 @@ FROM alexandreoda/ufonet
 LABEL authors https://www.automata.science
 ARG target
 
+RUN apt-get update && apt-get install tor privoxy -y
+
 RUN echo -e '\033[36;1m ******* CONTAINER START COMMAND ******** \033[0m'
 CMD sudo service tor start && \ 
     sudo service privoxy start && \ 
