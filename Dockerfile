@@ -9,7 +9,7 @@ ENV APP https://github.com/epsylon/ufonet.git
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN echo -e '\033[36;1m ******* INSTALL PACKAGES ******** \033[0m' && \
-  apt-get update && apt-get install --no-install-recommends -y \
+  apt-get update && apt-get install -y \
   sudo \
   git \
   tor \
@@ -29,7 +29,7 @@ RUN echo -e '\033[36;1m ******* ADD USER ******** \033[0m' && \
   useradd -d ${HOME} -m ${USER} && \
   passwd -d ${USER} && \
   adduser ${USER} sudo
-
+RUN sudo update-alternatives --config python
 RUN echo -e '\033[36;1m ******* SELECT USER ******** \033[0m'
 USER ${USER}
 
