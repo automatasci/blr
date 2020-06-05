@@ -1,4 +1,4 @@
-FROM arulrajnet/torprivoxy
+FROM debian:buster-slim
 
 LABEL authors https://www.automata.science
 ARG target
