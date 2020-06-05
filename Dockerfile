@@ -1,4 +1,4 @@
-FROM dockage/tor-privoxy
+FROM arulrajnet/torprivoxy
 
 LABEL authors https://www.automata.science
 ARG target
@@ -8,7 +8,7 @@ ENV APP https://github.com/epsylon/ufonet.git
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN echo -e '\033[36;1m ******* INSTALL PACKAGES ******** \033[0m' && \
-  apk update && apk add -y \
+  apk update && apk install --no-install-recommends -y \
   sudo \
   git \
   python \
@@ -34,10 +34,14 @@ RUN echo -e '\033[36;1m ******* SELECT WORKING SPACE ******** \033[0m'
 WORKDIR ${HOME}
 
 RUN echo -e '\033[36;1m ******* INSTALL APP ******** \033[0m' && \
-  git clone ${APP}
+  git clone ${APP} && \
+  sudo apk --purge autoremove -y git
 
 RUN echo -e '\033[36;1m ******* SELECT WORKING SPACE ******** \033[0m'
 WORKDIR ${HOME}/ufonet/
+
+RUN echo -e '\033[36;1m ******* START PROXY ******** \033[0m'
+RUN supervisord -c '/opt/supervisor/supervisord.conf'
 
 RUN echo -e '\033[36;1m ******* CONTAINER START COMMAND ******** \033[0m'
 CMD ./ufonet --check-tor --proxy="http://127.0.0.1:8118" && \ 
