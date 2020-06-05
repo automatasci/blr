@@ -45,7 +45,7 @@ WORKDIR ${HOME}/ufonet/
 RUN echo -e '\033[36;1m ******* CONTAINER START COMMAND ******** \033[0m'
 
 CMD sudo service tor start && \ 
-    # sudo service privoxy start && \ 
+    /etc/init.d/privoxy start && \ 
     python3 ufonet --check-tor --proxy="http://127.0.0.1:8118" && \ 
     python3 ufonet --download-zombies --force-yes &&  \ 
     python3 ufonet -i 'https://lasgsafetyreg.com/' --force-yes && \ 
